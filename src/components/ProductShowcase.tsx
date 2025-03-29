@@ -2,6 +2,7 @@
 import React, { useRef, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { cn } from '@/lib/utils';
+import GradientBackground from './GradientBackground';
 
 const products = [
   {
@@ -96,20 +97,23 @@ const ProductShowcase: React.FC = () => {
       className="relative min-h-screen w-full scroll-snap-section flex flex-col items-center justify-center py-20 px-6 overflow-hidden"
       ref={sectionRef}
     >
-      {/* Background element - subtle particles */}
+      {/* Premium background with gradient */}
+      <GradientBackground variant="purple" className="opacity-80" />
+      
+      {/* Subtle particle effects */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 left-0 w-full h-full">
-          {Array.from({ length: 20 }).map((_, i) => (
+          {Array.from({ length: 30 }).map((_, i) => (
             <div 
               key={i}
               className="absolute rounded-full bg-white/5 animate-subtle-pulse"
               style={{
-                width: `${Math.random() * 5 + 1}px`,
-                height: `${Math.random() * 5 + 1}px`,
+                width: `${Math.random() * 4 + 1}px`,
+                height: `${Math.random() * 4 + 1}px`,
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${Math.random() * 10 + 5}s`
+                animationDelay: `${Math.random() * 8}s`,
+                animationDuration: `${Math.random() * 15 + 10}s`
               }}
             />
           ))}
@@ -119,21 +123,21 @@ const ProductShowcase: React.FC = () => {
       {/* Section header */}
       <div 
         className={cn(
-          "text-center mb-16 opacity-0 translate-y-10 transition-all duration-1000 ease-out",
+          "text-center mb-20 opacity-0 translate-y-10 transition-all duration-1000 ease-out",
           "delay-300"
         )}
         ref={el => cardsRef.current[0] = el}
       >
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white/50 mb-4 silver-text">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 silver-text">
           Our Products
         </h2>
-        <p className="text-white/60 max-w-2xl mx-auto text-lg">
+        <p className="text-white/80 max-w-2xl mx-auto text-lg metallic-text">
           Digital alchemy solutions crafted for the modern age
         </p>
       </div>
       
-      {/* Products grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl w-full">
+      {/* Products grid with more spacing */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl w-full">
         {products.map((product, index) => (
           <div
             key={product.name}
@@ -141,6 +145,10 @@ const ProductShowcase: React.FC = () => {
               "opacity-0 translate-y-10 transition-all duration-1000 ease-out",
               `delay-${(index + 1) * 200}`
             )}
+            style={{
+              animation: 'float-slow 6s ease-in-out infinite',
+              animationDelay: `${index * 1.2}s`
+            }}
             ref={el => cardsRef.current[index + 1] = el}
           >
             <ProductCard
