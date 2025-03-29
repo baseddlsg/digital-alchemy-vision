@@ -13,7 +13,7 @@ const MinimalNavigation: React.FC<MinimalNavigationProps> = ({
   activeSection,
   onNavigate
 }) => {
-  const sections = ['CREATE', 'MANIFEST', 'NOW', 'PHILOSOPHY'];
+  const sections = ['CREATE', 'MANIFEST', 'NOW'];
   
   return (
     <div className={cn(
