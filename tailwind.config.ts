@@ -142,6 +142,10 @@ export default {
 					'0%, 100%': { opacity: '0.1' },
 					'50%': { opacity: '0.2', strokeDasharray: '0' },
 					'75%': { strokeDasharray: '10' }
+				},
+				'spin-very-slow': {
+					'from': { transform: 'rotate(0deg)' },
+					'to': { transform: 'rotate(360deg)' }
 				}
 			},
 			animation: {
@@ -157,7 +161,8 @@ export default {
 				'geometric-pulse': 'geometric-pulse 10s ease-in-out infinite',
 				'geometric-spin': 'geometric-spin 20s linear infinite',
 				'geometric-rotate': 'geometric-rotate 15s linear infinite',
-				'geometric-morph': 'geometric-morph 15s ease-in-out infinite'
+				'geometric-morph': 'geometric-morph 15s ease-in-out infinite',
+				'spin-very-slow': 'spin-very-slow 120s linear infinite'
 			}
 		}
 	},

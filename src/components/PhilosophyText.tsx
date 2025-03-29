@@ -1,10 +1,14 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 
 const PhilosophyText = () => {
-  // Simplified text content with just the one premium line
+  // Split the text into individual words
   const philosophyText = "For millennia, the philosopher's stone has represented humanity's quest to transmute base elements into transcendent forms.";
+  const words = philosophyText.split(' ');
+  
+  // Track which word is being hovered
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   
   return (
     <div className="flex flex-col items-center justify-center text-center">
@@ -19,13 +23,23 @@ const PhilosophyText = () => {
       </h2>
       
       <div className="max-w-2xl mx-auto">
-        <p className={cn(
-          'text-2xl md:text-3xl lg:text-4xl font-semibold',
-          'text-white/90',
-          'tracking-wide leading-relaxed',
-          'metallic-text'
-        )}>
-          {philosophyText}
+        <p className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-wide leading-relaxed">
+          {words.map((word, index) => (
+            <React.Fragment key={index}>
+              <span 
+                className={cn(
+                  'inline-block transition-all duration-300',
+                  'metallic-text',
+                  hoveredIndex === index && 'text-gleam'
+                )}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                {word}
+              </span>
+              {index < words.length - 1 && ' '}
+            </React.Fragment>
+          ))}
         </p>
       </div>
     </div>

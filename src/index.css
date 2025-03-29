@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -202,6 +203,30 @@
     font-weight: 700;
   }
   
+  .text-gleam {
+    background: linear-gradient(
+      90deg, 
+      rgba(255, 255, 255, 0.1), 
+      rgba(255, 255, 255, 0.9), 
+      rgba(255, 255, 255, 0.1)
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: text-shimmer 2s ease-in-out infinite;
+    text-shadow: 
+      0 0 5px rgba(255, 255, 255, 0.3),
+      0 0 10px rgba(255, 255, 255, 0.1);
+    font-weight: 600;
+  }
+  
+  .ouroboros-path {
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 0;
+    animation: draw 60s linear infinite;
+  }
+  
   .key-term {
     @apply relative cursor-pointer transition-all duration-300;
     position: relative;
@@ -253,6 +278,10 @@
   .animate-geometric-morph {
     animation: geometric-morph 15s ease-in-out infinite;
   }
+  
+  .animate-spin-very-slow {
+    animation: spin-very-slow 120s linear infinite;
+  }
 }
 
 @keyframes float-slow {
@@ -284,6 +313,21 @@
   0%, 100% { opacity: 0.1; }
   50% { opacity: 0.2; stroke-dasharray: 0; }
   75% { stroke-dasharray: 10; }
+}
+
+@keyframes text-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes draw {
+  0% { stroke-dashoffset: 2000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes spin-very-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 #root {
