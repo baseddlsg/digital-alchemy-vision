@@ -160,6 +160,23 @@
     background: linear-gradient(-45deg, #10B981, #14B8A6, #1A1F2C, #221F26);
     background-size: 400% 400%;
   }
+  
+  .transform {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+  
+  .translate-z-10 {
+    transform: translateZ(10px);
+  }
+  
+  .translate-z-20 {
+    transform: translateZ(20px);
+  }
+  
+  .translate-z-30 {
+    transform: translateZ(30px);
+  }
 }
 
 #root {

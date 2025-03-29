@@ -114,6 +114,10 @@ export default {
 				'text-shimmer': {
 					'0%': { backgroundPosition: '200% 0' },
 					'100%': { backgroundPosition: '-200% 0' }
+				},
+				'spin-slow': {
+					'from': { transform: 'rotate(0deg)' },
+					'to': { transform: 'rotate(360deg)' }
 				}
 			},
 			animation: {
@@ -122,7 +126,8 @@ export default {
 				'gradient-shift': 'gradient-shift 15s ease-in-out infinite',
 				'float': 'float 6s ease-in-out infinite',
 				'pulse-slow': 'pulse-slow 8s ease-in-out infinite',
-				'text-shimmer': 'text-shimmer 8s infinite linear'
+				'text-shimmer': 'text-shimmer 8s infinite linear',
+				'spin-slow': 'spin-slow 20s linear infinite'
 			}
 		}
 	},
