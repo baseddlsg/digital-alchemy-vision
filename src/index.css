@@ -177,22 +177,37 @@
     transform: translateZ(30px);
   }
   
+  .metallic-text {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 
+      0 0 1px rgba(255, 255, 255, 0.3),
+      0 0 2px rgba(155, 155, 155, 0.2),
+      0 0 3px rgba(100, 100, 100, 0.1);
+    font-weight: 500;
+  }
+  
   .silver-text {
-    color: rgba(255, 255, 255, 0.5);
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(200,200,200,0.6) 50%, rgba(170,170,170,0.4) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     text-shadow: 
       0 0 1px rgba(255, 255, 255, 0.2),
       0 0 2px rgba(255, 255, 255, 0.1);
+    font-weight: 700;
   }
   
   .key-term {
     @apply relative cursor-pointer transition-all duration-300;
+    position: relative;
   }
   
   .key-term:hover {
     @apply text-white;
     text-shadow: 
-      0 0 5px rgba(255, 255, 255, 0.4),
-      0 0 10px rgba(155, 135, 245, 0.3);
+      0 0 5px rgba(255, 255, 255, 0.5),
+      0 0 10px rgba(155, 135, 245, 0.4),
+      0 0 15px rgba(155, 135, 245, 0.3);
   }
   
   .circular-outline {
@@ -200,13 +215,14 @@
     height: 100%;
     max-width: 700px;
     max-height: 700px;
-    border: 0.5px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 50%;
   }
   
   .text-container {
-    max-width: 650px;
+    max-width: 600px;
     margin: 0 auto;
+    padding: 0 20px;
   }
   
   .animate-float-slow {
@@ -240,8 +256,8 @@
 }
 
 @keyframes subtle-pulse {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.25; }
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(1.02); }
 }
 
 @keyframes geometric-pulse {

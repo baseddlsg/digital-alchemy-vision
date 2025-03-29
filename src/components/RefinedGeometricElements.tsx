@@ -23,10 +23,10 @@ const RefinedGeometricElements = () => {
         
         // Different movement factor for each corner
         const moveFactors = [
-          { x: -15, y: -15 }, // top-left
-          { x: 15, y: -15 },  // top-right
-          { x: -15, y: 15 },  // bottom-left
-          { x: 15, y: 15 }    // bottom-right
+          { x: -20, y: -20 }, // top-left
+          { x: 20, y: -20 },  // top-right
+          { x: -20, y: 20 },  // bottom-left
+          { x: 20, y: 20 }    // bottom-right
         ];
         
         const factor = moveFactors[index % 4];
@@ -47,22 +47,16 @@ const RefinedGeometricElements = () => {
       className="absolute inset-0 overflow-hidden pointer-events-none"
     >
       {/* Top Left - Hexagon */}
-      <div className="corner-element absolute top-[10%] left-[10%]">
-        <svg width="100" height="87" viewBox="0 0 100 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div className="corner-element absolute top-[5%] left-[5%]">
+        <svg width="120" height="104" viewBox="0 0 120 104" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
-            d="M50 0L93.3 25V75L50 100L6.7 75V25L50 0Z" 
-            stroke="rgba(255, 255, 255, 0.1)" 
+            d="M60 0L112 30V90L60 120L8 90V30L60 0Z" 
+            stroke="rgba(255, 255, 255, 0.15)" 
             strokeWidth="0.5"
             className="animate-geometric-morph"
           />
-        </svg>
-      </div>
-      
-      {/* Top Right - Triangle */}
-      <div className="corner-element absolute top-[10%] right-[10%]">
-        <svg width="90" height="78" viewBox="0 0 90 78" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
-            d="M45 0L90 78H0L45 0Z" 
+            d="M60 15L97.5 37.5V82.5L60 105L22.5 82.5V37.5L60 15Z" 
             stroke="rgba(255, 255, 255, 0.1)" 
             strokeWidth="0.5"
             className="animate-geometric-spin"
@@ -70,28 +64,39 @@ const RefinedGeometricElements = () => {
         </svg>
       </div>
       
-      {/* Bottom Left - Circle */}
-      <div className="corner-element absolute bottom-[10%] left-[10%]">
-        <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle 
-            cx="35" 
-            cy="35" 
-            r="34.5" 
+      {/* Top Right - Triangle */}
+      <div className="corner-element absolute top-[5%] right-[5%]">
+        <svg width="100" height="87" viewBox="0 0 100 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path 
+            d="M50 0L100 87H0L50 0Z" 
+            stroke="rgba(255, 255, 255, 0.15)" 
+            strokeWidth="0.5"
+            className="animate-geometric-spin"
+          />
+          <path 
+            d="M50 20L87.5 87H12.5L50 20Z" 
             stroke="rgba(255, 255, 255, 0.1)" 
             strokeWidth="0.5"
-            className="animate-geometric-pulse"
+            className="animate-geometric-morph"
           />
         </svg>
       </div>
       
-      {/* Bottom Right - Square */}
-      <div className="corner-element absolute bottom-[10%] right-[10%]">
-        <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect 
-            x="0.5" 
-            y="0.5" 
-            width="69" 
-            height="69" 
+      {/* Bottom Left - Circle */}
+      <div className="corner-element absolute bottom-[5%] left-[5%]">
+        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle 
+            cx="50" 
+            cy="50" 
+            r="49.5" 
+            stroke="rgba(255, 255, 255, 0.15)" 
+            strokeWidth="0.5"
+            className="animate-geometric-pulse"
+          />
+          <circle 
+            cx="50" 
+            cy="50" 
+            r="35" 
             stroke="rgba(255, 255, 255, 0.1)" 
             strokeWidth="0.5"
             className="animate-geometric-rotate"
@@ -99,9 +104,33 @@ const RefinedGeometricElements = () => {
         </svg>
       </div>
       
+      {/* Bottom Right - Square */}
+      <div className="corner-element absolute bottom-[5%] right-[5%]">
+        <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect 
+            x="0.5" 
+            y="0.5" 
+            width="89" 
+            height="89" 
+            stroke="rgba(255, 255, 255, 0.15)" 
+            strokeWidth="0.5"
+            className="animate-geometric-rotate"
+          />
+          <rect 
+            x="20" 
+            y="20" 
+            width="50" 
+            height="50" 
+            stroke="rgba(255, 255, 255, 0.1)" 
+            strokeWidth="0.5"
+            className="animate-geometric-morph"
+          />
+        </svg>
+      </div>
+      
       {/* Central Circle Container */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="circular-outline animate-subtle-pulse" />
+        <div className="circular-outline animate-pulse-slow" />
       </div>
     </div>
   );
