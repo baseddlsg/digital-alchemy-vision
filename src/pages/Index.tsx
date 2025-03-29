@@ -30,9 +30,9 @@ const Index = () => {
     },
     {
       id: 'philosophy',
-      variant: 'purple' as const, // Not used in the philosophy section but needed for type consistency
-      text: '',
-      tagline: ''
+      variant: 'purple' as const, // Uses custom background
+      text: '', // No main text for philosophy section
+      tagline: '' // No tagline for philosophy section
     }
   ];
   
