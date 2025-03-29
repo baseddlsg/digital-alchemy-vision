@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -118,6 +117,31 @@ export default {
 				'spin-slow': {
 					'from': { transform: 'rotate(0deg)' },
 					'to': { transform: 'rotate(360deg)' }
+				},
+				'float-slow': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-4px)' }
+				},
+				'subtle-pulse': {
+					'0%, 100%': { opacity: '0.15' },
+					'50%': { opacity: '0.25' }
+				},
+				'geometric-pulse': {
+					'0%, 100%': { opacity: '0.1', transform: 'scale(1)' },
+					'50%': { opacity: '0.2', transform: 'scale(1.05)' }
+				},
+				'geometric-spin': {
+					'0%': { transform: 'rotate(0)' },
+					'100%': { transform: 'rotate(360deg)' }
+				},
+				'geometric-rotate': {
+					'0%': { transform: 'rotate(0)' },
+					'100%': { transform: 'rotate(90deg)' }
+				},
+				'geometric-morph': {
+					'0%, 100%': { opacity: '0.1' },
+					'50%': { opacity: '0.2', strokeDasharray: '0' },
+					'75%': { strokeDasharray: '10' }
 				}
 			},
 			animation: {
@@ -127,7 +151,13 @@ export default {
 				'float': 'float 6s ease-in-out infinite',
 				'pulse-slow': 'pulse-slow 8s ease-in-out infinite',
 				'text-shimmer': 'text-shimmer 8s infinite linear',
-				'spin-slow': 'spin-slow 20s linear infinite'
+				'spin-slow': 'spin-slow 20s linear infinite',
+				'float-slow': 'float-slow 6s ease-in-out infinite',
+				'subtle-pulse': 'subtle-pulse 8s ease-in-out infinite',
+				'geometric-pulse': 'geometric-pulse 10s ease-in-out infinite',
+				'geometric-spin': 'geometric-spin 20s linear infinite',
+				'geometric-rotate': 'geometric-rotate 15s linear infinite',
+				'geometric-morph': 'geometric-morph 15s ease-in-out infinite'
 			}
 		}
 	},
