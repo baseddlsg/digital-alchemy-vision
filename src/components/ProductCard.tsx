@@ -26,49 +26,52 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const cardRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  const [condensation, setCondensation] = useState<{ x: number, y: number, size: number }[]>([]);
+  const [condensation, setCondensation] = useState<{ x: number, y: number, size: number, opacity: number }[]>([]);
   
   // Generate initial condensation points
   useEffect(() => {
-    const points = Array.from({ length: 10 }, () => ({
+    const points = Array.from({ length: 15 }, () => ({
       x: Math.random() * 100,
-      y: Math.random() * 30,
-      size: 1 + Math.random() * 3
+      y: Math.random() * 40,
+      size: 1 + Math.random() * 3,
+      opacity: 0.1 + Math.random() * 0.4
     }));
     setCondensation(points);
   }, []);
   
-  // Animate condensation occasionally
+  // Animate condensation more visibly
   useEffect(() => {
     const interval = setInterval(() => {
       setCondensation(prev => 
         prev.map(point => ({
           ...point,
-          y: point.y + (0.2 + Math.random() * 0.5),
-          size: point.size > 0.5 ? point.size - 0.1 : point.size
+          y: point.y + (0.3 + Math.random() * 0.5),
+          size: point.size > 0.5 ? point.size - 0.1 : point.size,
+          opacity: Math.max(0.1, point.opacity - 0.02)
         }))
       );
       
-      // Add new condensation occasionally
-      if (Math.random() > 0.7) {
+      // Add new condensation more frequently
+      if (Math.random() > 0.6) {
         setCondensation(prev => [
           ...prev,
           {
             x: Math.random() * 100,
             y: 0,
-            size: 1 + Math.random() * 3
+            size: 1 + Math.random() * 4,
+            opacity: 0.2 + Math.random() * 0.5
           }
         ]);
       }
       
       // Remove condensation that has moved off the card
-      setCondensation(prev => prev.filter(point => point.y < 100 && point.size > 0.3));
-    }, 300);
+      setCondensation(prev => prev.filter(point => point.y < 100 && point.opacity > 0.1));
+    }, 200);
     
     return () => clearInterval(interval);
   }, []);
   
-  // Handle mouse movement for light refraction effect
+  // Handle mouse movement for enhanced light refraction effect
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
       const rect = cardRef.current.getBoundingClientRect();
@@ -78,26 +81,39 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
   
-  // Color mapping
-  const colorMap: Record<string, { bg: string, glow: string }> = {
-    '#6C3082': { bg: 'from-alchemy-purple/20 to-alchemy-purple-dark/10', glow: 'purple' },
-    '#1A73E8': { bg: 'from-alchemy-blue/20 to-alchemy-blue-royal/10', glow: 'blue' },
-    '#34A853': { bg: 'from-alchemy-green-emerald/20 to-alchemy-green-teal/10', glow: 'green' }
+  // Color mapping with enhanced glow
+  const colorMap: Record<string, { bg: string, glow: string, shadow: string }> = {
+    '#6C3082': { 
+      bg: 'from-alchemy-purple/20 to-alchemy-purple-dark/10', 
+      glow: 'purple',
+      shadow: '108,48,130'
+    },
+    '#1A73E8': { 
+      bg: 'from-alchemy-blue/20 to-alchemy-blue-royal/10', 
+      glow: 'blue',
+      shadow: '26,115,232'
+    },
+    '#34A853': { 
+      bg: 'from-alchemy-green-emerald/20 to-alchemy-green-teal/10', 
+      glow: 'green',
+      shadow: '52,168,83'
+    }
   };
   
   const bgGradient = colorMap[color]?.bg || 'from-white/10 to-black/20';
   const glowColor = colorMap[color]?.glow || 'purple';
+  const shadowColor = colorMap[color]?.shadow || '108,48,130';
 
   return (
     <div 
       ref={cardRef}
       className={cn(
         'relative overflow-hidden rounded-2xl transition-all duration-500',
-        'glass-premium backdrop-blur-xl',
-        'flex flex-col p-8 h-full',
+        'glass-premium backdrop-blur-2xl',
+        'flex flex-col p-6 h-full',
         'bg-gradient-to-br',
         bgGradient,
-        isHovered && 'scale-[1.02] shadow-2xl',
+        isHovered && 'scale-[1.02]',
         'animate-float-slow',
         className
       )}
@@ -106,18 +122,24 @@ const ProductCard: React.FC<ProductCardProps> = ({
           ? `perspective(1200px) rotateX(${mousePosition.y * -7}deg) rotateY(${mousePosition.x * 7}deg)` 
           : 'perspective(1200px) rotateX(0deg) rotateY(0deg)',
         transition: 'transform 0.3s ease-out',
-        boxShadow: `0 10px 30px -5px rgba(0,0,0,0.3), 0 0 15px rgba(${color === '#6C3082' ? '108,48,130' : color === '#1A73E8' ? '26,115,232' : '52,168,83'},0.2)`
+        boxShadow: `
+          0 10px 30px -5px rgba(0,0,0,0.3), 
+          0 4px 20px rgba(${shadowColor},0.2),
+          0 0 15px rgba(${shadowColor},0.1),
+          0 0 5px rgba(${shadowColor},0.05)
+        `,
+        border: '1px solid rgba(255,255,255,0.15)'
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Glow effect behind the card */}
+      {/* Enhanced glow effect behind the card */}
       <div 
         className={cn(
           'absolute -z-10 blur-3xl w-3/4 h-3/4 rounded-full',
           'transition-opacity duration-700',
-          isHovered ? 'opacity-40' : 'opacity-25',
+          isHovered ? 'opacity-50' : 'opacity-30',
           `bg-alchemy-${glowColor}`
         )} 
         style={{
@@ -129,33 +151,37 @@ const ProductCard: React.FC<ProductCardProps> = ({
       
       {/* Enhanced light refraction layer */}
       <div 
-        className="absolute inset-0 bg-white/5 opacity-0 transition-opacity duration-300"
+        className="absolute inset-0 bg-white/5 transition-opacity duration-300"
         style={{
-          opacity: isHovered ? 0.08 : 0,
+          opacity: isHovered ? 0.12 : 0.05,
           background: isHovered 
-            ? `radial-gradient(circle at ${50 + mousePosition.x * 100}% ${50 + mousePosition.y * 100}%, rgba(255,255,255,0.8) 0%, transparent 70%)`
-            : 'none'
+            ? `radial-gradient(circle at ${50 + mousePosition.x * 100}% ${50 + mousePosition.y * 100}%, rgba(255,255,255,0.9) 0%, transparent 70%)`
+            : 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 80%)'
         }}
       />
       
-      {/* Condensation effect */}
+      {/* Enhanced frosted glass surface texture */}
+      <div className="absolute inset-0 bg-noise-pattern opacity-10" />
+      
+      {/* Enhanced condensation effect */}
       {condensation.map((drop, idx) => (
         <div
           key={idx}
-          className="absolute rounded-full bg-white/30"
+          className="absolute rounded-full bg-white/40"
           style={{
             left: `${drop.x}%`,
             top: `${drop.y}%`,
             width: `${drop.size}px`,
             height: `${drop.size * (1 + Math.random() * 4)}px`,
-            opacity: 0.1 + Math.random() * 0.4
+            opacity: drop.opacity,
+            filter: 'blur(0.5px)'
           }}
         />
       ))}
       
-      {/* Status badge */}
+      {/* Status badge with enhanced glass effect */}
       <div className={cn(
-        'absolute top-6 right-6 px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm',
+        'absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium backdrop-blur-xl',
         status === 'available' 
           ? 'bg-green-500/20 text-green-300 border border-green-500/30'
           : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
@@ -163,32 +189,32 @@ const ProductCard: React.FC<ProductCardProps> = ({
         {status === 'available' ? 'Available Now' : 'Coming Soon'}
       </div>
       
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full z-10">
         {/* Product name and tagline */}
-        <h3 className="text-3xl font-bold silver-text mb-2">{name}</h3>
-        <p className="text-sm text-white/70 mb-8 metallic-text">{tagline}</p>
+        <h3 className="text-2xl font-bold silver-text mb-2">{name}</h3>
+        <p className="text-xs text-white/70 mb-4 metallic-text">{tagline}</p>
         
         {/* Description */}
-        <p className="text-white/80 mb-8 leading-relaxed">{description}</p>
+        <p className="text-white/80 mb-5 text-sm leading-relaxed">{description}</p>
         
-        {/* Features */}
-        <div className="mb-8 flex-grow">
-          <ul className="space-y-3">
+        {/* Features with enhanced styling */}
+        <div className="mb-6 flex-grow">
+          <ul className="space-y-2">
             {features.map((feature, index) => (
-              <li key={index} className="flex items-center text-sm text-white/70">
-                <span className="mr-3 text-white/50">◈</span>
+              <li key={index} className="flex items-center text-xs text-white/70">
+                <span className="mr-2.5 text-white/50">◈</span>
                 <span className="metallic-text">{feature}</span>
               </li>
             ))}
           </ul>
         </div>
         
-        {/* Button */}
+        {/* Button with enhanced glass effect */}
         <Button 
           variant="outline"
           className={cn(
             'mt-auto border-white/10 bg-white/5 hover:bg-white/10',
-            'transition-all duration-300 backdrop-blur-sm text-white/90',
+            'transition-all duration-300 backdrop-blur-xl text-white/90',
             status === 'coming-soon' && 'opacity-50 cursor-not-allowed'
           )}
           disabled={status === 'coming-soon'}

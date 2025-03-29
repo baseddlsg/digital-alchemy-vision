@@ -63,6 +63,7 @@ const ProductShowcase: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   
+  // Intersection Observer for reveal animations
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -91,19 +92,45 @@ const ProductShowcase: React.FC = () => {
     };
   }, []);
   
+  // Parallax effect on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      
+      const scrollPosition = window.scrollY;
+      const sectionTop = sectionRef.current.offsetTop;
+      const scrollRelative = scrollPosition - sectionTop;
+      
+      cardsRef.current.forEach((card, index) => {
+        if (!card) return;
+        
+        // Apply different parallax rates to each card
+        const parallaxRate = 0.03 * (index % 2 === 0 ? 1 : -1);
+        const yOffset = scrollRelative * parallaxRate;
+        
+        if (Math.abs(yOffset) < 20) { // Limit the parallax effect
+          card.style.transform = `translateY(${yOffset}px)`;
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
   return (
     <div 
       id="products" 
-      className="relative min-h-screen w-full scroll-snap-section flex flex-col items-center justify-center py-20 px-6 overflow-hidden"
+      className="relative min-h-screen w-full scroll-snap-section flex flex-col items-center justify-center py-16 px-6 overflow-hidden"
       ref={sectionRef}
     >
-      {/* Premium background with gradient */}
-      <GradientBackground variant="purple" className="opacity-80" />
+      {/* Enhanced background with gradient transition from philosophy section */}
+      <GradientBackground variant="purple" className="opacity-90" />
       
-      {/* Subtle particle effects */}
+      {/* Enhanced particle effects with more depth */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-0 left-0 w-full h-full">
-          {Array.from({ length: 30 }).map((_, i) => (
+          {Array.from({ length: 40 }).map((_, i) => (
             <div 
               key={i}
               className="absolute rounded-full bg-white/5 animate-subtle-pulse"
@@ -113,17 +140,22 @@ const ProductShowcase: React.FC = () => {
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 8}s`,
-                animationDuration: `${Math.random() * 15 + 10}s`
+                animationDuration: `${Math.random() * 15 + 10}s`,
+                filter: 'blur(1px)'
               }}
             />
           ))}
         </div>
+        
+        {/* Depth elements */}
+        <div className="absolute inset-0 bg-gradient-to-b from-alchemy-purple-deep/20 to-transparent opacity-30" />
+        <div className="absolute inset-0 bg-radial-gradient from-transparent to-black/20 opacity-40" />
       </div>
       
       {/* Section header */}
       <div 
         className={cn(
-          "text-center mb-20 opacity-0 translate-y-10 transition-all duration-1000 ease-out",
+          "text-center mb-16 opacity-0 translate-y-10 transition-all duration-1000 ease-out",
           "delay-300"
         )}
         ref={el => cardsRef.current[0] = el}
@@ -136,8 +168,8 @@ const ProductShowcase: React.FC = () => {
         </p>
       </div>
       
-      {/* Products grid with more spacing */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl w-full">
+      {/* Products grid with increased spacing */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 max-w-5xl w-full">
         {products.map((product, index) => (
           <div
             key={product.name}
@@ -158,6 +190,7 @@ const ProductShowcase: React.FC = () => {
               features={product.features}
               color={product.color}
               status={product.status}
+              className="transform-gpu"
             />
           </div>
         ))}
