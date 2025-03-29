@@ -92,23 +92,30 @@ const ProductShowcase: React.FC = () => {
     };
   }, []);
   
-  // Parallax effect on scroll
+  // Parallax effect on scroll with improved behavior
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
       
       const scrollPosition = window.scrollY;
       const sectionTop = sectionRef.current.offsetTop;
-      const scrollRelative = scrollPosition - sectionTop;
+      const viewportHeight = window.innerHeight;
+      
+      // Only apply parallax when the section is in view
+      if (scrollPosition + viewportHeight < sectionTop || scrollPosition > sectionTop + sectionRef.current.offsetHeight) {
+        return;
+      }
+      
+      const scrollRelative = scrollPosition - sectionTop + viewportHeight / 2;
       
       cardsRef.current.forEach((card, index) => {
         if (!card) return;
         
-        // Apply different parallax rates to each card
-        const parallaxRate = 0.03 * (index % 2 === 0 ? 1 : -1);
+        // Apply different, more subtle parallax rates to each card
+        const parallaxRate = 0.02 * (index % 2 === 0 ? 1 : -1);
         const yOffset = scrollRelative * parallaxRate;
         
-        if (Math.abs(yOffset) < 20) { // Limit the parallax effect
+        if (Math.abs(yOffset) < 15) { // Limit the parallax effect
           card.style.transform = `translateY(${yOffset}px)`;
         }
       });
@@ -121,8 +128,11 @@ const ProductShowcase: React.FC = () => {
   return (
     <div 
       id="products" 
-      className="relative min-h-screen w-full scroll-snap-section flex flex-col items-center justify-center py-16 px-6 overflow-hidden"
+      className="relative min-h-screen w-full scroll-snap-section flex flex-col items-center justify-start py-24 px-6 overflow-visible"
       ref={sectionRef}
+      style={{
+        scrollMarginTop: '4rem', // Add scroll margin to improve anchoring
+      }}
     >
       {/* Enhanced background with gradient transition from philosophy section */}
       <GradientBackground variant="purple" className="opacity-90" />
@@ -152,11 +162,11 @@ const ProductShowcase: React.FC = () => {
         <div className="absolute inset-0 bg-radial-gradient from-transparent to-black/20 opacity-40" />
       </div>
       
-      {/* Section header */}
+      {/* Section header with improved visibility */}
       <div 
         className={cn(
-          "text-center mb-16 opacity-0 translate-y-10 transition-all duration-1000 ease-out",
-          "delay-300"
+          "text-center mb-16 opacity-0 translate-y-10 transition-all duration-1000 ease-out w-full",
+          "delay-300 pt-10"
         )}
         ref={el => cardsRef.current[0] = el}
       >
@@ -168,8 +178,8 @@ const ProductShowcase: React.FC = () => {
         </p>
       </div>
       
-      {/* Products grid with increased spacing */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 max-w-5xl w-full">
+      {/* Products grid with improved layout and visibility */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl w-full">
         {products.map((product, index) => (
           <div
             key={product.name}
@@ -195,6 +205,9 @@ const ProductShowcase: React.FC = () => {
           </div>
         ))}
       </div>
+      
+      {/* Add bottom padding to ensure proper spacing */}
+      <div className="h-16"></div>
     </div>
   );
 };

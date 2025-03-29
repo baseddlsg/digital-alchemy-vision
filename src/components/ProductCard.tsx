@@ -110,7 +110,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       className={cn(
         'relative overflow-hidden rounded-2xl transition-all duration-500',
         'glass-premium backdrop-blur-2xl',
-        'flex flex-col p-6 h-full',
+        'flex flex-col p-5', // Reduced padding to fit content better
         'bg-gradient-to-br',
         bgGradient,
         isHovered && 'scale-[1.02]',
@@ -123,12 +123,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
           : 'perspective(1200px) rotateX(0deg) rotateY(0deg)',
         transition: 'transform 0.3s ease-out',
         boxShadow: `
-          0 10px 30px -5px rgba(0,0,0,0.3), 
-          0 4px 20px rgba(${shadowColor},0.2),
-          0 0 15px rgba(${shadowColor},0.1),
-          0 0 5px rgba(${shadowColor},0.05)
+          0 15px 35px -5px rgba(0,0,0,0.4), 
+          0 5px 20px rgba(${shadowColor},0.25),
+          0 0 15px rgba(${shadowColor},0.15),
+          0 0 8px rgba(${shadowColor},0.08)
         `,
-        border: '1px solid rgba(255,255,255,0.15)'
+        border: '1px solid rgba(255,255,255,0.15)',
+        maxHeight: '400px', // Ensure card doesn't get too tall
+        height: '100%'
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
@@ -153,7 +155,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div 
         className="absolute inset-0 bg-white/5 transition-opacity duration-300"
         style={{
-          opacity: isHovered ? 0.12 : 0.05,
+          opacity: isHovered ? 0.15 : 0.08,
           background: isHovered 
             ? `radial-gradient(circle at ${50 + mousePosition.x * 100}% ${50 + mousePosition.y * 100}%, rgba(255,255,255,0.9) 0%, transparent 70%)`
             : 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 80%)'
@@ -161,13 +163,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
       />
       
       {/* Enhanced frosted glass surface texture */}
-      <div className="absolute inset-0 bg-noise-pattern opacity-10" />
+      <div className="absolute inset-0 bg-noise-pattern opacity-15" />
       
       {/* Enhanced condensation effect */}
       {condensation.map((drop, idx) => (
         <div
           key={idx}
-          className="absolute rounded-full bg-white/40"
+          className="absolute rounded-full bg-white/50"
           style={{
             left: `${drop.x}%`,
             top: `${drop.y}%`,
@@ -181,7 +183,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       
       {/* Status badge with enhanced glass effect */}
       <div className={cn(
-        'absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium backdrop-blur-xl',
+        'absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-xs font-medium backdrop-blur-xl',
         status === 'available' 
           ? 'bg-green-500/20 text-green-300 border border-green-500/30'
           : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
@@ -191,18 +193,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
       
       <div className="flex flex-col h-full z-10">
         {/* Product name and tagline */}
-        <h3 className="text-2xl font-bold silver-text mb-2">{name}</h3>
-        <p className="text-xs text-white/70 mb-4 metallic-text">{tagline}</p>
+        <h3 className="text-xl font-bold silver-text mb-1.5">{name}</h3>
+        <p className="text-xs text-white/70 mb-3 metallic-text">{tagline}</p>
         
         {/* Description */}
-        <p className="text-white/80 mb-5 text-sm leading-relaxed">{description}</p>
+        <p className="text-white/80 mb-4 text-sm leading-relaxed">{description}</p>
         
         {/* Features with enhanced styling */}
-        <div className="mb-6 flex-grow">
-          <ul className="space-y-2">
+        <div className="mb-4 flex-grow">
+          <ul className="space-y-1.5">
             {features.map((feature, index) => (
               <li key={index} className="flex items-center text-xs text-white/70">
-                <span className="mr-2.5 text-white/50">◈</span>
+                <span className="mr-2 text-white/50">◈</span>
                 <span className="metallic-text">{feature}</span>
               </li>
             ))}
@@ -214,7 +216,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
           variant="outline"
           className={cn(
             'mt-auto border-white/10 bg-white/5 hover:bg-white/10',
-            'transition-all duration-300 backdrop-blur-xl text-white/90',
+            'transition-all duration-300 backdrop-blur-xl text-white/90 text-sm',
+            'h-8 px-3 py-1', // Smaller button
             status === 'coming-soon' && 'opacity-50 cursor-not-allowed'
           )}
           disabled={status === 'coming-soon'}

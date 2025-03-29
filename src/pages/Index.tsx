@@ -47,7 +47,15 @@ const Index = () => {
     if (containerRef.current) {
       const sectionElement = document.getElementById(sections[index].id);
       if (sectionElement) {
-        sectionElement.scrollIntoView({ behavior: 'smooth' });
+        // Calculate offset to ensure proper visibility
+        const headerOffset = 60; // Estimate for any fixed header height
+        const elementPosition = sectionElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
       }
     }
     setActiveSection(index);
@@ -61,8 +69,8 @@ const Index = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (containerRef.current) {
-        // Get the current scroll position
-        const scrollPosition = window.scrollY + window.innerHeight / 3;
+        // Get the current scroll position with improved offset
+        const scrollPosition = window.scrollY + window.innerHeight / 4;
         
         // Find which section is currently in view
         for (let i = 0; i < sections.length; i++) {
