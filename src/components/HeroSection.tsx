@@ -24,7 +24,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       id={id}
       className={cn(
         'relative flex items-center justify-center',
-        'min-h-screen w-full scroll-snap-section',
+        'h-screen w-full scroll-snap-section',
         className
       )}
     >

@@ -10,6 +10,7 @@ import Footer from '@/components/Footer';
 const Index = () => {
   const [activeSection, setActiveSection] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const heroSectionsRef = useRef<HTMLDivElement>(null);
   
   const sections = [
     {
@@ -96,9 +97,10 @@ const Index = () => {
   
   return (
     <div className="flex flex-col min-h-screen">
+      {/* Hero sections with scroll snap */}
       <div 
-        ref={containerRef}
-        className="flex-grow"
+        ref={heroSectionsRef}
+        className="scroll-snap-container scrollbar-hidden h-screen"
       >
         {sections.slice(0, 3).map((section, index) => (
           <HeroSection
@@ -109,22 +111,27 @@ const Index = () => {
             tagline={section.tagline}
           />
         ))}
-        
-        <PhilosophySection id="philosophy" />
-        <ProductShowcase />
-        
-        <MinimalNavigation 
-          activeSection={activeSection} 
-          onNavigate={handleNavigate} 
-        />
-        
-        <ScrollIndicator 
-          onClick={handleScrollToNext} 
-          className="fixed" 
-        />
       </div>
       
-      <Footer />
+      {/* Regular scrolling sections */}
+      <div 
+        ref={containerRef}
+        className="flex-grow"
+      >
+        <PhilosophySection id="philosophy" />
+        <ProductShowcase />
+        <Footer />
+      </div>
+      
+      <MinimalNavigation 
+        activeSection={activeSection} 
+        onNavigate={handleNavigate} 
+      />
+      
+      <ScrollIndicator 
+        onClick={handleScrollToNext} 
+        className="fixed" 
+      />
     </div>
   );
 };
