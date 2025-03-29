@@ -40,49 +40,49 @@ const CosmicScene: React.FC<CosmicSceneProps> = ({ mousePosition }) => {
     rendererRef.current = renderer;
 
     // Create ambient light
-    const ambientLight = new THREE.AmbientLight(0x404040, 0.8);
+    const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
     scene.add(ambientLight);
 
     // Add directional light
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.4);
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
     
     // Add point lights with colors
-    const pointLight1 = new THREE.PointLight(0x9b87f5, 1, 100);
+    const pointLight1 = new THREE.PointLight(0x9b87f5, 0.7, 100);
     pointLight1.position.set(-15, 5, 10);
     scene.add(pointLight1);
 
-    const pointLight2 = new THREE.PointLight(0x33C3F0, 1, 100);
+    const pointLight2 = new THREE.PointLight(0x33C3F0, 0.7, 100);
     pointLight2.position.set(15, -5, 10);
     scene.add(pointLight2);
 
-    // Create sophisticated geometric forms
+    // Create sophisticated geometric forms - REDUCED QUANTITY AND SIZE
     const geometries = [];
     
-    // Create icosahedron clusters
-    for (let i = 0; i < 20; i++) {
+    // Create fewer icosahedron clusters with smaller size and more transparency
+    for (let i = 0; i < 10; i++) { // Reduced from 20 to 10
       const material = new THREE.MeshPhysicalMaterial({
         color: new THREE.Color(
           Math.random() * 0.1 + 0.1, 
           Math.random() * 0.1 + 0.1, 
           Math.random() * 0.2 + 0.2
         ),
-        metalness: 0.8,
-        roughness: 0.2,
-        opacity: 0.7,
+        metalness: 0.7,
+        roughness: 0.3,
+        opacity: 0.5, // More transparent
         transparent: true,
         side: THREE.DoubleSide
       });
       
-      const geometry = new THREE.IcosahedronGeometry(Math.random() * 1.5 + 0.5, 0);
+      const geometry = new THREE.IcosahedronGeometry(Math.random() * 1 + 0.3, 0); // Smaller size
       const mesh = new THREE.Mesh(geometry, material);
       
-      // Position randomly in 3D space
+      // Position with more space between objects
       mesh.position.set(
-        (Math.random() - 0.5) * 40,
-        (Math.random() - 0.5) * 40,
-        (Math.random() - 0.5) * 30
+        (Math.random() - 0.5) * 50,
+        (Math.random() - 0.5) * 50,
+        (Math.random() - 0.5) * 40 - 10 // Push further back
       );
       
       mesh.rotation.set(
@@ -95,37 +95,21 @@ const CosmicScene: React.FC<CosmicSceneProps> = ({ mousePosition }) => {
       geometries.push(mesh);
     }
 
-    // Add some larger geometric forms
-    const dodecahedronGeometry = new THREE.DodecahedronGeometry(3, 0);
+    // Add one larger geometric form (reduced from two)
+    const dodecahedronGeometry = new THREE.DodecahedronGeometry(2, 0); // Smaller size
     const dodecahedronMaterial = new THREE.MeshPhysicalMaterial({
       color: 0x1EAEDB,
-      metalness: 0.9,
-      roughness: 0.2,
-      opacity: 0.7,
+      metalness: 0.8,
+      roughness: 0.3,
+      opacity: 0.5, // More transparent
       transparent: true,
       side: THREE.DoubleSide
     });
     
     const dodecahedron = new THREE.Mesh(dodecahedronGeometry, dodecahedronMaterial);
-    dodecahedron.position.set(-8, 5, -5);
+    dodecahedron.position.set(-12, 8, -15); // Positioned further back
     scene.add(dodecahedron);
     geometries.push(dodecahedron);
-
-    // Add toroidal structure
-    const torusGeometry = new THREE.TorusGeometry(5, 0.7, 16, 50);
-    const torusMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x10B981,
-      metalness: 0.8,
-      roughness: 0.2,
-      opacity: 0.6,
-      transparent: true
-    });
-    
-    const torus = new THREE.Mesh(torusGeometry, torusMaterial);
-    torus.position.set(8, -4, -10);
-    torus.rotation.x = Math.PI / 3;
-    scene.add(torus);
-    geometries.push(torus);
 
     geometriesRef.current = geometries;
 
@@ -150,10 +134,10 @@ const CosmicScene: React.FC<CosmicSceneProps> = ({ mousePosition }) => {
       
       animationFrameRef.current = requestAnimationFrame(animate);
       
-      // Slowly rotate all objects
+      // Slower rotation for more subtle movement
       geometriesRef.current.forEach((mesh, i) => {
-        mesh.rotation.x += 0.001 + (i % 3) * 0.0003;
-        mesh.rotation.y += 0.001 + (i % 4) * 0.0005;
+        mesh.rotation.x += 0.0005 + (i % 3) * 0.0002;
+        mesh.rotation.y += 0.0005 + (i % 4) * 0.0003;
       });
       
       // Render the scene
@@ -182,7 +166,7 @@ const CosmicScene: React.FC<CosmicSceneProps> = ({ mousePosition }) => {
     };
   }, []);
 
-  // Update camera position based on mouse movement
+  // Update camera position based on mouse movement - more subtle parallax
   useEffect(() => {
     if (!cameraRef.current) return;
     
@@ -190,22 +174,22 @@ const CosmicScene: React.FC<CosmicSceneProps> = ({ mousePosition }) => {
     const normalizedX = (mousePosition.x / window.innerWidth) * 2 - 1;
     const normalizedY = -(mousePosition.y / window.innerHeight) * 2 + 1;
     
-    // Apply subtle camera movement
-    const targetX = normalizedX * 2;
-    const targetY = normalizedY * 2;
+    // Apply more subtle camera movement
+    const targetX = normalizedX * 1.2; // Reduced from 2
+    const targetY = normalizedY * 1.2; // Reduced from 2
     
-    // Smooth transition
-    cameraRef.current.position.x += (targetX - cameraRef.current.position.x) * 0.05;
-    cameraRef.current.position.y += (targetY - cameraRef.current.position.y) * 0.05;
+    // Smoother transition
+    cameraRef.current.position.x += (targetX - cameraRef.current.position.x) * 0.03; // Slower
+    cameraRef.current.position.y += (targetY - cameraRef.current.position.y) * 0.03; // Slower
     
     // Look at center
     cameraRef.current.lookAt(0, 0, 0);
     
-    // Also move some geometries slightly
+    // More subtle movement for geometries
     geometriesRef.current.forEach((mesh, i) => {
       if (i % 3 === 0) {
-        mesh.position.x += normalizedX * 0.02;
-        mesh.position.y += normalizedY * 0.02;
+        mesh.position.x += normalizedX * 0.01; // Reduced from 0.02
+        mesh.position.y += normalizedY * 0.01; // Reduced from 0.02
       }
     });
   }, [mousePosition]);
@@ -213,7 +197,7 @@ const CosmicScene: React.FC<CosmicSceneProps> = ({ mousePosition }) => {
   return (
     <div 
       ref={containerRef} 
-      className="absolute inset-0 z-0 overflow-hidden bg-gradient-to-br from-[#0f0920] via-[#1A1F2C] to-[#18222b]"
+      className="absolute inset-0 z-0 overflow-hidden bg-gradient-to-br from-[#0a071a] via-[#141a24] to-[#13192b]"
     />
   );
 };
