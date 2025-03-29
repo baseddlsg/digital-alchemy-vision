@@ -98,7 +98,7 @@ const Index = () => {
     <div className="flex flex-col min-h-screen">
       <div 
         ref={containerRef}
-        className="scroll-snap-container scrollbar-hidden flex-grow"
+        className="flex-grow"
       >
         {sections.slice(0, 3).map((section, index) => (
           <HeroSection

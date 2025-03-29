@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { cn } from '@/lib/utils';
@@ -128,12 +127,8 @@ const ProductShowcase: React.FC = () => {
   return (
     <div 
       id="products" 
-      className="relative min-h-screen w-full flex flex-col items-center justify-start py-28 px-6 overflow-hidden"
+      className="relative min-h-screen w-full flex flex-col items-center justify-start py-28 px-6 overflow-visible"
       ref={sectionRef}
-      style={{
-        scrollMarginTop: '4rem',
-        paddingBottom: '8rem', // Ensure enough space at the bottom
-      }}
     >
       {/* Enhanced background with gradient transition from philosophy section */}
       <GradientBackground variant="purple" className="opacity-90" />
@@ -180,7 +175,7 @@ const ProductShowcase: React.FC = () => {
       </div>
       
       {/* Products grid with improved layout and visibility */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 max-w-5xl w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 max-w-5xl w-full mb-20">
         {products.map((product, index) => (
           <div
             key={product.name}
