@@ -20,10 +20,11 @@ const PhilosophyText = () => {
       
       <div className="max-w-2xl mx-auto">
         <p className={cn(
-          'text-2xl md:text-3xl lg:text-4xl font-semibold',
+          'text-2xl md:text-3xl lg:text-4xl font-bold', // Increased font weight
           'text-white/90',
           'tracking-wide leading-relaxed',
-          'metallic-text'
+          'metallic-text',
+          'hover:animate-text-shimmer key-term' // Added hover effect
         )}>
           {philosophyText}
         </p>
