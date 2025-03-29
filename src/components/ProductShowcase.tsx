@@ -128,10 +128,11 @@ const ProductShowcase: React.FC = () => {
   return (
     <div 
       id="products" 
-      className="relative min-h-screen w-full scroll-snap-section flex flex-col items-center justify-start py-24 px-6 overflow-visible"
+      className="relative min-h-screen w-full flex flex-col items-center justify-start py-28 px-6 overflow-hidden"
       ref={sectionRef}
       style={{
-        scrollMarginTop: '4rem', // Add scroll margin to improve anchoring
+        scrollMarginTop: '4rem',
+        paddingBottom: '8rem', // Ensure enough space at the bottom
       }}
     >
       {/* Enhanced background with gradient transition from philosophy section */}
@@ -179,7 +180,7 @@ const ProductShowcase: React.FC = () => {
       </div>
       
       {/* Products grid with improved layout and visibility */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 max-w-5xl w-full">
         {products.map((product, index) => (
           <div
             key={product.name}
@@ -205,9 +206,6 @@ const ProductShowcase: React.FC = () => {
           </div>
         ))}
       </div>
-      
-      {/* Add bottom padding to ensure proper spacing */}
-      <div className="h-16"></div>
     </div>
   );
 };

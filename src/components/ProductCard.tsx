@@ -110,7 +110,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       className={cn(
         'relative overflow-hidden rounded-2xl transition-all duration-500',
         'glass-premium backdrop-blur-2xl',
-        'flex flex-col p-5', // Reduced padding to fit content better
+        'flex flex-col p-5',
         'bg-gradient-to-br',
         bgGradient,
         isHovered && 'scale-[1.02]',
@@ -129,7 +129,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           0 0 8px rgba(${shadowColor},0.08)
         `,
         border: '1px solid rgba(255,255,255,0.15)',
-        maxHeight: '400px', // Ensure card doesn't get too tall
+        maxHeight: '380px', // Slightly reduced height
         height: '100%'
       }}
       onMouseMove={handleMouseMove}
@@ -194,13 +194,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="flex flex-col h-full z-10">
         {/* Product name and tagline */}
         <h3 className="text-xl font-bold silver-text mb-1.5">{name}</h3>
-        <p className="text-xs text-white/70 mb-3 metallic-text">{tagline}</p>
+        <p className="text-xs text-white/70 mb-2 metallic-text">{tagline}</p>
         
         {/* Description */}
-        <p className="text-white/80 mb-4 text-sm leading-relaxed">{description}</p>
+        <p className="text-white/80 mb-3 text-sm leading-relaxed">{description}</p>
         
         {/* Features with enhanced styling */}
-        <div className="mb-4 flex-grow">
+        <div className="mb-3 flex-grow">
           <ul className="space-y-1.5">
             {features.map((feature, index) => (
               <li key={index} className="flex items-center text-xs text-white/70">

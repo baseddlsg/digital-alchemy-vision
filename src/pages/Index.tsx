@@ -5,6 +5,7 @@ import MinimalNavigation from '@/components/MinimalNavigation';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import PhilosophySection from '@/components/PhilosophySection';
 import ProductShowcase from '@/components/ProductShowcase';
+import Footer from '@/components/Footer';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState(0);
@@ -94,32 +95,36 @@ const Index = () => {
   }, [sections]);
   
   return (
-    <div 
-      ref={containerRef}
-      className="scroll-snap-container scrollbar-hidden"
-    >
-      {sections.slice(0, 3).map((section, index) => (
-        <HeroSection
-          key={section.id}
-          id={section.id}
-          variant={section.variant}
-          text={section.text}
-          tagline={section.tagline}
+    <div className="flex flex-col min-h-screen">
+      <div 
+        ref={containerRef}
+        className="scroll-snap-container scrollbar-hidden flex-grow"
+      >
+        {sections.slice(0, 3).map((section, index) => (
+          <HeroSection
+            key={section.id}
+            id={section.id}
+            variant={section.variant}
+            text={section.text}
+            tagline={section.tagline}
+          />
+        ))}
+        
+        <PhilosophySection id="philosophy" />
+        <ProductShowcase />
+        
+        <MinimalNavigation 
+          activeSection={activeSection} 
+          onNavigate={handleNavigate} 
         />
-      ))}
+        
+        <ScrollIndicator 
+          onClick={handleScrollToNext} 
+          className="fixed" 
+        />
+      </div>
       
-      <PhilosophySection id="philosophy" />
-      <ProductShowcase />
-      
-      <MinimalNavigation 
-        activeSection={activeSection} 
-        onNavigate={handleNavigate} 
-      />
-      
-      <ScrollIndicator 
-        onClick={handleScrollToNext} 
-        className="fixed" 
-      />
+      <Footer />
     </div>
   );
 };
