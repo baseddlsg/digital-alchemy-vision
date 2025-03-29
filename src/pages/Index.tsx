@@ -1,6 +1,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import HeroSection from '@/components/HeroSection';
+import PhilosophySection from '@/components/PhilosophySection';
 import MinimalNavigation from '@/components/MinimalNavigation';
 import ScrollIndicator from '@/components/ScrollIndicator';
 
@@ -26,6 +27,12 @@ const Index = () => {
       variant: 'green' as const,
       text: 'NOW',
       tagline: 'The perfect moment is always present'
+    },
+    {
+      id: 'philosophy',
+      variant: 'purple' as const, // Not used in the philosophy section but needed for type consistency
+      text: '',
+      tagline: ''
     }
   ];
   
@@ -76,7 +83,7 @@ const Index = () => {
       ref={containerRef}
       className="scroll-snap-container scrollbar-hidden"
     >
-      {sections.map((section, index) => (
+      {sections.slice(0, 3).map((section, index) => (
         <HeroSection
           key={section.id}
           id={section.id}
@@ -85,6 +92,8 @@ const Index = () => {
           tagline={section.tagline}
         />
       ))}
+      
+      <PhilosophySection id="philosophy" />
       
       <MinimalNavigation 
         activeSection={activeSection} 
