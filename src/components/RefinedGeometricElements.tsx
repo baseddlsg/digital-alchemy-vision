@@ -1,53 +1,12 @@
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 
 const RefinedGeometricElements = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      
-      // Calculate relative mouse position (-1 to 1)
-      const moveX = (clientX / innerWidth - 0.5) * 2;
-      const moveY = (clientY / innerHeight - 0.5) * 2;
-      
-      // Apply different parallax factors to each corner element
-      const elements = containerRef.current.querySelectorAll('.corner-element');
-      elements.forEach((el, index) => {
-        const htmlEl = el as HTMLElement;
-        
-        // Different movement factor for each corner
-        const moveFactors = [
-          { x: -20, y: -20 }, // top-left
-          { x: 20, y: -20 },  // top-right
-          { x: -20, y: 20 },  // bottom-left
-          { x: 20, y: 20 }    // bottom-right
-        ];
-        
-        const factor = moveFactors[index % 4];
-        htmlEl.style.transform = `translate(${moveX * factor.x}px, ${moveY * factor.y}px)`;
-      });
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-  
   return (
-    <div 
-      ref={containerRef}
-      className="absolute inset-0 overflow-hidden pointer-events-none"
-    >
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Top Left - Hexagon */}
-      <div className="corner-element absolute top-[5%] left-[5%]">
+      <div className="absolute top-[5%] left-[5%]">
         <svg width="120" height="104" viewBox="0 0 120 104" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
             d="M60 0L112 30V90L60 120L8 90V30L60 0Z" 
@@ -65,7 +24,7 @@ const RefinedGeometricElements = () => {
       </div>
       
       {/* Top Right - Triangle */}
-      <div className="corner-element absolute top-[5%] right-[5%]">
+      <div className="absolute top-[5%] right-[5%]">
         <svg width="100" height="87" viewBox="0 0 100 87" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
             d="M50 0L100 87H0L50 0Z" 
@@ -83,7 +42,7 @@ const RefinedGeometricElements = () => {
       </div>
       
       {/* Bottom Left - Circle */}
-      <div className="corner-element absolute bottom-[5%] left-[5%]">
+      <div className="absolute bottom-[5%] left-[5%]">
         <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle 
             cx="50" 
@@ -105,7 +64,7 @@ const RefinedGeometricElements = () => {
       </div>
       
       {/* Bottom Right - Square */}
-      <div className="corner-element absolute bottom-[5%] right-[5%]">
+      <div className="absolute bottom-[5%] right-[5%]">
         <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect 
             x="0.5" 

@@ -160,6 +160,11 @@
     background-size: 400% 400%;
   }
   
+  .dark-gradient {
+    background: linear-gradient(-45deg, #1A1F2C, #222, #000000e6, #333);
+    background-size: 400% 400%;
+  }
+  
   .transform {
     transform-style: preserve-3d;
     perspective: 1000px;
