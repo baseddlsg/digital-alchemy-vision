@@ -281,6 +281,56 @@
   .animate-spin-very-slow {
     animation: spin-very-slow 120s linear infinite;
   }
+  
+  .product-card-gradient {
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+  }
+  
+  .glass-premium {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10;
+    box-shadow: 
+      0 4px 30px rgba(0, 0, 0, 0.1),
+      inset 0 0 1px 1px rgba(255, 255, 255, 0.05);
+  }
+  
+  @keyframes card-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-card-reveal {
+    animation: card-reveal 0.8s ease-out forwards;
+  }
+  
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+  
+  .delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .delay-500 {
+    animation-delay: 500ms;
+  }
+  
+  .delay-600 {
+    animation-delay: 600ms;
+  }
 }
 
 @keyframes float-slow {

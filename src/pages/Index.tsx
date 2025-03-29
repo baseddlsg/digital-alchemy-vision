@@ -4,6 +4,7 @@ import HeroSection from '@/components/HeroSection';
 import MinimalNavigation from '@/components/MinimalNavigation';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import PhilosophySection from '@/components/PhilosophySection';
+import ProductShowcase from '@/components/ProductShowcase';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState(0);
@@ -33,6 +34,12 @@ const Index = () => {
       variant: 'purple' as const,
       text: 'PHILOSOPHY',
       tagline: 'Modern alchemy for the digital age'
+    },
+    {
+      id: 'products',
+      variant: 'purple' as const,
+      text: 'PRODUCTS',
+      tagline: 'Premium digital transformation tools'
     }
   ];
   
@@ -94,6 +101,7 @@ const Index = () => {
       ))}
       
       <PhilosophySection id="philosophy" />
+      <ProductShowcase />
       
       <MinimalNavigation 
         activeSection={activeSection} 
