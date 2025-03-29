@@ -1,9 +1,9 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import GradientBackground from './GradientBackground';
 import RefinedGeometricElements from './RefinedGeometricElements';
 import PhilosophyText from './PhilosophyText';
+import FluidBackground from './FluidBackground';
 
 interface PhilosophySectionProps {
   className?: string;
@@ -23,8 +23,8 @@ const PhilosophySection: React.FC<PhilosophySectionProps> = ({
         className
       )}
     >
-      {/* Sophisticated dark blue/black gradient background */}
-      <GradientBackground variant="dark" />
+      {/* WebGL fluid background */}
+      <FluidBackground />
       
       {/* Refined geometric elements in corners */}
       <RefinedGeometricElements />

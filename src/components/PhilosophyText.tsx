@@ -3,12 +3,36 @@ import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 
 const PhilosophyText = () => {
-  // Split the text into individual words
+  // Split the text into individual letters for precise highlighting
   const philosophyText = "For millennia, the philosopher's stone has represented humanity's quest to transmute base elements into transcendent forms.";
-  const words = philosophyText.split(' ');
   
-  // Track which word is being hovered
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  // Track which letter is being hovered
+  const [hoveredLetter, setHoveredLetter] = useState<number | null>(null);
+  
+  // Create an array of all letters with their indices
+  const letters = philosophyText.split('').map((letter, index) => ({ letter, index }));
+  
+  // Group letters into words for better layout management
+  const words: { letters: { letter: string, index: number }[], startIndex: number }[] = [];
+  let currentWord: { letter: string, index: number }[] = [];
+  let wordStartIndex = 0;
+  
+  letters.forEach((letterObj) => {
+    if (letterObj.letter === ' ') {
+      if (currentWord.length > 0) {
+        words.push({ letters: [...currentWord], startIndex: wordStartIndex });
+        currentWord = [];
+        wordStartIndex = letterObj.index + 1;
+      }
+    } else {
+      currentWord.push(letterObj);
+    }
+  });
+  
+  // Add the last word
+  if (currentWord.length > 0) {
+    words.push({ letters: currentWord, startIndex: wordStartIndex });
+  }
   
   return (
     <div className="flex flex-col items-center justify-center text-center">
@@ -24,20 +48,25 @@ const PhilosophyText = () => {
       
       <div className="max-w-2xl mx-auto">
         <p className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-wide leading-relaxed">
-          {words.map((word, index) => (
-            <React.Fragment key={index}>
-              <span 
-                className={cn(
-                  'inline-block transition-all duration-300',
-                  'metallic-text',
-                  hoveredIndex === index && 'text-gleam'
-                )}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              >
-                {word}
+          {words.map((word, wordIndex) => (
+            <React.Fragment key={wordIndex}>
+              <span className="inline-block">
+                {word.letters.map((letterObj) => (
+                  <span 
+                    key={letterObj.index}
+                    className={cn(
+                      'inline-block transition-all duration-300',
+                      'metallic-text',
+                      hoveredLetter === letterObj.index && 'text-gleam'
+                    )}
+                    onMouseEnter={() => setHoveredLetter(letterObj.index)}
+                    onMouseLeave={() => setHoveredLetter(null)}
+                  >
+                    {letterObj.letter}
+                  </span>
+                ))}
               </span>
-              {index < words.length - 1 && ' '}
+              {wordIndex < words.length - 1 && ' '}
             </React.Fragment>
           ))}
         </p>
