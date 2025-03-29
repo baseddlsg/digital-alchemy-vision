@@ -160,16 +160,6 @@
     background: linear-gradient(-45deg, #10B981, #14B8A6, #1A1F2C, #221F26);
     background-size: 400% 400%;
   }
-  
-  .philosophy-gradient {
-    background: linear-gradient(-45deg, #1A1F2C, #221F26, #403E43, #1A1F2C);
-    background-size: 400% 400%;
-    animation: gradient-shift 15s ease-in-out infinite;
-  }
-  
-  .text-gradient-primary {
-    @apply bg-gradient-to-br from-white via-white/90 to-white/70 bg-clip-text text-transparent;
-  }
 }
 
 #root {
