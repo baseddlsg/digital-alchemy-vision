@@ -121,7 +121,7 @@ const ProductShowcase: React.FC = () => {
   return (
     <div 
       id="products" 
-      className="relative min-h-screen w-full flex flex-col items-center justify-start py-24 px-6 overflow-hidden"
+      className="relative min-h-screen w-full scroll-snap-section flex flex-col items-center justify-center py-16 px-6 overflow-hidden"
       ref={sectionRef}
     >
       {/* Enhanced background with gradient transition from philosophy section */}
@@ -152,11 +152,11 @@ const ProductShowcase: React.FC = () => {
         <div className="absolute inset-0 bg-radial-gradient from-transparent to-black/20 opacity-40" />
       </div>
       
-      {/* Section header - adjusted positioning */}
+      {/* Section header */}
       <div 
         className={cn(
-          "text-center mb-12 opacity-0 translate-y-10 transition-all duration-1000 ease-out",
-          "delay-300 pt-8"
+          "text-center mb-16 opacity-0 translate-y-10 transition-all duration-1000 ease-out",
+          "delay-300"
         )}
         ref={el => cardsRef.current[0] = el}
       >
@@ -168,15 +168,14 @@ const ProductShowcase: React.FC = () => {
         </p>
       </div>
       
-      {/* Products grid with improved responsive layout and spacing */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12 max-w-6xl w-full px-4 pb-12">
+      {/* Products grid with increased spacing */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 max-w-5xl w-full">
         {products.map((product, index) => (
           <div
             key={product.name}
             className={cn(
               "opacity-0 translate-y-10 transition-all duration-1000 ease-out",
-              `delay-${(index + 1) * 200}`,
-              "flex" // To ensure full height rendering
+              `delay-${(index + 1) * 200}`
             )}
             style={{
               animation: 'float-slow 6s ease-in-out infinite',
@@ -191,7 +190,7 @@ const ProductShowcase: React.FC = () => {
               features={product.features}
               color={product.color}
               status={product.status}
-              className="transform-gpu w-full"
+              className="transform-gpu"
             />
           </div>
         ))}

@@ -47,11 +47,7 @@ const Index = () => {
     if (containerRef.current) {
       const sectionElement = document.getElementById(sections[index].id);
       if (sectionElement) {
-        // Updated scrolling behavior with offset for better visibility
-        window.scrollTo({
-          top: sectionElement.offsetTop,
-          behavior: 'smooth'
-        });
+        sectionElement.scrollIntoView({ behavior: 'smooth' });
       }
     }
     setActiveSection(index);
@@ -66,7 +62,7 @@ const Index = () => {
     const handleScroll = () => {
       if (containerRef.current) {
         // Get the current scroll position
-        const scrollPosition = window.scrollY + (window.innerHeight / 3);
+        const scrollPosition = window.scrollY + window.innerHeight / 3;
         
         // Find which section is currently in view
         for (let i = 0; i < sections.length; i++) {
@@ -92,7 +88,7 @@ const Index = () => {
   return (
     <div 
       ref={containerRef}
-      className="overflow-y-auto"
+      className="scroll-snap-container scrollbar-hidden"
     >
       {sections.slice(0, 3).map((section, index) => (
         <HeroSection
