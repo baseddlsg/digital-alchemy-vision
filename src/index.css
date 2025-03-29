@@ -165,29 +165,6 @@
     background-size: 400% 400%;
   }
   
-  .liquid-effect {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .liquid-effect:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000' viewBox='0 0 1000 1000'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-  }
-  
-  .liquid-overlay {
-    background: linear-gradient(45deg, rgba(0,0,0,0) 25%, rgba(255,255,255,0.02) 50%, rgba(0,0,0,0) 75%);
-    background-size: 200% 200%;
-  }
-  
   .transform {
     transform-style: preserve-3d;
     perspective: 1000px;
@@ -206,23 +183,22 @@
   }
   
   .metallic-text {
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(255, 255, 255, 0.9);
     text-shadow: 
-      0 0 1px rgba(255, 255, 255, 0.5),
-      0 0 2px rgba(200, 200, 200, 0.3),
-      0 0 3px rgba(150, 150, 150, 0.2);
-    font-weight: 600;
-    letter-spacing: 0.01em;
+      0 0 1px rgba(255, 255, 255, 0.3),
+      0 0 2px rgba(155, 155, 155, 0.2),
+      0 0 3px rgba(100, 100, 100, 0.1);
+    font-weight: 500;
   }
   
   .silver-text {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(220,220,220,0.7) 50%, rgba(190,190,190,0.5) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(200,200,200,0.6) 50%, rgba(170,170,170,0.4) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     text-shadow: 
-      0 0 1px rgba(255, 255, 255, 0.3),
-      0 0 2px rgba(255, 255, 255, 0.2);
+      0 0 1px rgba(255, 255, 255, 0.2),
+      0 0 2px rgba(255, 255, 255, 0.1);
     font-weight: 700;
   }
   
@@ -234,25 +210,9 @@
   .key-term:hover {
     @apply text-white;
     text-shadow: 
-      0 0 5px rgba(255, 255, 255, 0.6),
-      0 0 10px rgba(200, 200, 200, 0.4),
-      0 0 15px rgba(180, 180, 180, 0.3);
-    background-image: linear-gradient(90deg, 
-      rgba(255,255,255,0.1), 
-      rgba(255,255,255,0.3), 
-      rgba(255,255,255,0.1)
-    );
-    background-size: 200% auto;
-    background-position: 0 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    animation: text-shimmer 3s ease infinite;
-  }
-  
-  .ouroboros-path {
-    stroke-dasharray: 2000;
-    stroke-dashoffset: 0;
-    animation: draw-ouroboros 12s linear infinite;
+      0 0 5px rgba(255, 255, 255, 0.5),
+      0 0 10px rgba(155, 135, 245, 0.4),
+      0 0 15px rgba(155, 135, 245, 0.3);
   }
   
   .circular-outline {
@@ -293,18 +253,6 @@
   .animate-geometric-morph {
     animation: geometric-morph 15s ease-in-out infinite;
   }
-  
-  .animate-text-shimmer {
-    animation: text-shimmer 3s ease infinite;
-  }
-  
-  .animate-subtle-flow {
-    animation: subtle-flow 15s ease-in-out infinite;
-  }
-  
-  .animate-draw-ouroboros {
-    animation: draw-ouroboros 12s linear infinite;
-  }
 }
 
 @keyframes float-slow {
@@ -336,21 +284,6 @@
   0%, 100% { opacity: 0.1; }
   50% { opacity: 0.2; stroke-dasharray: 0; }
   75% { stroke-dasharray: 10; }
-}
-
-@keyframes text-shimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-@keyframes draw-ouroboros {
-  from { stroke-dashoffset: 2000; }
-  to { stroke-dashoffset: 0; }
-}
-
-@keyframes subtle-flow {
-  0%, 100% { background-position: 0% 0%; }
-  50% { background-position: 100% 100%; }
 }
 
 #root {

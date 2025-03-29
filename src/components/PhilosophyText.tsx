@@ -1,16 +1,10 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 
 const PhilosophyText = () => {
-  // Track which word is being hovered
-  const [hoveredWordIndex, setHoveredWordIndex] = useState<number | null>(null);
-  
   // Simplified text content with just the one premium line
   const philosophyText = "For millennia, the philosopher's stone has represented humanity's quest to transmute base elements into transcendent forms.";
-  
-  // Split the text into words for individual hover effects
-  const words = philosophyText.split(' ');
   
   return (
     <div className="flex flex-col items-center justify-center text-center">
@@ -25,22 +19,13 @@ const PhilosophyText = () => {
       </h2>
       
       <div className="max-w-2xl mx-auto">
-        <p className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide leading-relaxed">
-          {words.map((word, index) => (
-            <React.Fragment key={index}>
-              <span 
-                className={cn(
-                  'inline-block metallic-text transition-all duration-300',
-                  hoveredWordIndex === index ? 'animate-text-shimmer text-white' : 'text-white/90'
-                )}
-                onMouseEnter={() => setHoveredWordIndex(index)}
-                onMouseLeave={() => setHoveredWordIndex(null)}
-              >
-                {word}
-              </span>
-              {index < words.length - 1 && ' '}
-            </React.Fragment>
-          ))}
+        <p className={cn(
+          'text-2xl md:text-3xl lg:text-4xl font-semibold',
+          'text-white/90',
+          'tracking-wide leading-relaxed',
+          'metallic-text'
+        )}>
+          {philosophyText}
         </p>
       </div>
     </div>
