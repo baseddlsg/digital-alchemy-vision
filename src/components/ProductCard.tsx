@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
@@ -28,7 +27,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [condensation, setCondensation] = useState<{ x: number, y: number, size: number, opacity: number }[]>([]);
   
-  // Generate initial condensation points
   useEffect(() => {
     const points = Array.from({ length: 15 }, () => ({
       x: Math.random() * 100,
@@ -39,7 +37,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
     setCondensation(points);
   }, []);
   
-  // Animate condensation more visibly
   useEffect(() => {
     const interval = setInterval(() => {
       setCondensation(prev => 
@@ -51,7 +48,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
         }))
       );
       
-      // Add new condensation more frequently
       if (Math.random() > 0.6) {
         setCondensation(prev => [
           ...prev,
@@ -64,14 +60,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
         ]);
       }
       
-      // Remove condensation that has moved off the card
       setCondensation(prev => prev.filter(point => point.y < 100 && point.opacity > 0.1));
     }, 200);
     
     return () => clearInterval(interval);
   }, []);
   
-  // Handle mouse movement for enhanced light refraction effect
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
       const rect = cardRef.current.getBoundingClientRect();
@@ -81,7 +75,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
   
-  // Color mapping with enhanced glow
   const colorMap: Record<string, { bg: string, glow: string, shadow: string }> = {
     '#6C3082': { 
       bg: 'from-alchemy-purple/20 to-alchemy-purple-dark/10', 
@@ -129,14 +122,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
           0 0 8px rgba(${shadowColor},0.08)
         `,
         border: '1px solid rgba(255,255,255,0.15)',
-        maxHeight: '380px', // Slightly reduced height
+        maxHeight: '380px',
         height: '100%'
       }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Enhanced glow effect behind the card */}
       <div 
         className={cn(
           'absolute -z-10 blur-3xl w-3/4 h-3/4 rounded-full',
@@ -151,7 +143,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
         }}
       />
       
-      {/* Enhanced light refraction layer */}
       <div 
         className="absolute inset-0 bg-white/5 transition-opacity duration-300"
         style={{
@@ -162,10 +153,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
         }}
       />
       
-      {/* Enhanced frosted glass surface texture */}
       <div className="absolute inset-0 bg-noise-pattern opacity-15" />
       
-      {/* Enhanced condensation effect */}
       {condensation.map((drop, idx) => (
         <div
           key={idx}
@@ -181,7 +170,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
         />
       ))}
       
-      {/* Status badge with enhanced glass effect */}
       <div className={cn(
         'absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-xs font-medium backdrop-blur-xl',
         status === 'available' 
@@ -192,14 +180,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
       
       <div className="flex flex-col h-full z-10">
-        {/* Product name and tagline */}
         <h3 className="text-xl font-bold silver-text mb-1.5">{name}</h3>
         <p className="text-xs text-white/70 mb-2 metallic-text">{tagline}</p>
         
-        {/* Description */}
         <p className="text-white/80 mb-3 text-sm leading-relaxed">{description}</p>
         
-        {/* Features with enhanced styling */}
         <div className="mb-3 flex-grow">
           <ul className="space-y-1.5">
             {features.map((feature, index) => (
@@ -211,19 +196,38 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </ul>
         </div>
         
-        {/* Button with enhanced glass effect */}
-        <Button 
-          variant="outline"
-          className={cn(
-            'mt-auto border-white/10 bg-white/5 hover:bg-white/10',
-            'transition-all duration-300 backdrop-blur-xl text-white/90 text-sm',
-            'h-8 px-3 py-1', // Smaller button
-            status === 'coming-soon' && 'opacity-50 cursor-not-allowed'
-          )}
-          disabled={status === 'coming-soon'}
-        >
-          {status === 'available' ? 'Use Now' : 'Notify Me'}
-        </Button>
+        {status === 'available' ? (
+          <a 
+            href="https://thegreatwork.co/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="mt-auto"
+          >
+            <Button 
+              variant="outline"
+              className={cn(
+                'w-full border-white/10 bg-white/5 hover:bg-white/10',
+                'transition-all duration-300 backdrop-blur-xl text-white/90 text-sm',
+                'h-8 px-3 py-1'
+              )}
+            >
+              Use Now
+            </Button>
+          </a>
+        ) : (
+          <Button 
+            variant="outline"
+            className={cn(
+              'mt-auto border-white/10 bg-white/5 hover:bg-white/10',
+              'transition-all duration-300 backdrop-blur-xl text-white/90 text-sm',
+              'h-8 px-3 py-1',
+              'opacity-50 cursor-not-allowed'
+            )}
+            disabled
+          >
+            Notify Me
+          </Button>
+        )}
       </div>
     </div>
   );
