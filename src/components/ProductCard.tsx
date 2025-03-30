@@ -222,7 +222,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           )}
           disabled={status === 'coming-soon'}
         >
-          {status === 'available' ? 'Learn More' : 'Notify Me'}
+          {status === 'available' ? 'Use Now' : 'Notify Me'}
         </Button>
       </div>
     </div>
