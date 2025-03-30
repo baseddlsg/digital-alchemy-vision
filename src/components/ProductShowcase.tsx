@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { cn } from '@/lib/utils';
@@ -5,7 +6,7 @@ import GradientBackground from './GradientBackground';
 
 const products = [
   {
-    name: "Transformation",
+    name: "Transmute",
     tagline: "Premium Digital Alchemy Suite",
     description: "Transform your digital assets into refined experiences with our flagship suite of tools.",
     features: [
