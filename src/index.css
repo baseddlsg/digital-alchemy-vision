@@ -114,3 +114,38 @@
 .bg-radial-gradient {
   background-image: radial-gradient(circle, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 70%);
 }
+
+/* Text styles with consistent effects */
+.text-gleam {
+  color: white;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* Enhanced page transitions */
+@keyframes page-transition {
+  0% { 
+    opacity: 0;
+    transform: translateY(30px); 
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0); 
+  }
+}
+
+.page-enter {
+  animation: page-transition 0.7s ease-out forwards;
+}
+
+/* Consistent color palette classes */
+.text-alchemy-purple {
+  color: #9b87f5;
+}
+
+.text-alchemy-blue {
+  color: #33C3F0;
+}
+
+.text-alchemy-green {
+  color: #10B981;
+}

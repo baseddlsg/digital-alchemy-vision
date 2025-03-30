@@ -105,7 +105,7 @@ const Index = () => {
   
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero sections with scroll snap plus Philosophy */}
+      {/* Hero sections with scroll snap including Philosophy */}
       <div 
         ref={heroSectionsRef}
         className="scroll-snap-container scrollbar-hidden"
