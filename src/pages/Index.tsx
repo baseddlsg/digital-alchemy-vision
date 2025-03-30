@@ -68,7 +68,6 @@ const Index = () => {
     handleNavigate(nextSection);
   };
   
-  // Enhanced scroll detection with transitions
   useEffect(() => {
     const handleScroll = () => {
       if (containerRef.current) {
@@ -84,14 +83,7 @@ const Index = () => {
               scrollPosition >= offsetTop && 
               scrollPosition < offsetTop + offsetHeight
             ) {
-              if (activeSection !== i) {
-                // Add transition when changing sections
-                document.body.classList.add('section-transition');
-                setTimeout(() => {
-                  document.body.classList.remove('section-transition');
-                }, 800);
-                setActiveSection(i);
-              }
+              setActiveSection(i);
               break;
             }
           }
@@ -101,27 +93,23 @@ const Index = () => {
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [sections, activeSection]);
+  }, [sections]);
   
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero sections with scroll snap including Philosophy */}
+      {/* Hero sections with scroll snap */}
       <div 
         ref={heroSectionsRef}
-        className="scroll-snap-container scrollbar-hidden"
+        className="scroll-snap-container scrollbar-hidden h-screen"
       >
-        {sections.slice(0, 4).map((section, index) => (
-          index < 3 ? (
-            <HeroSection
-              key={section.id}
-              id={section.id}
-              variant={section.variant}
-              text={section.text}
-              tagline={section.tagline}
-            />
-          ) : (
-            <PhilosophySection key={section.id} id={section.id} />
-          )
+        {sections.slice(0, 3).map((section, index) => (
+          <HeroSection
+            key={section.id}
+            id={section.id}
+            variant={section.variant}
+            text={section.text}
+            tagline={section.tagline}
+          />
         ))}
       </div>
       
@@ -130,6 +118,7 @@ const Index = () => {
         ref={containerRef}
         className="flex-grow"
       >
+        <PhilosophySection id="philosophy" />
         <ProductShowcase />
         <Footer />
       </div>
